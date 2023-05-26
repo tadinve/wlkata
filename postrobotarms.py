@@ -33,7 +33,7 @@ def post_json_to_api(url, payload):
 
 # Process the logline and keep track if it has moved in position. If not moved, then send error.
 def process_log_line(log_line,deviceId):
-     global idle_count
+    global idle_count
     global prev_position
     log_line = log_line.split("|")[-1].strip()
     numbers = extract_numbers(log_line)
@@ -84,6 +84,7 @@ with open('com9.txt', 'r') as file:
         i += 1
         if len(line) > 10:  # there is data in the line
             print(line.strip())  # strip() is used to remove the newline character at the end
-            process_log_line(line,"17")
-        if i > 5:
-            break
+            try:
+                process_log_line(line,"17")
+            except:
+                print("An exception occurred processing one of the log lines. ignoring and continuing======================================")
