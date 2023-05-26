@@ -83,6 +83,6 @@ with open('com9.txt', 'r') as file:
         i += 1
         if len(line) > 10:  # there is data in the line
             print(line.strip())  # strip() is used to remove the newline character at the end
-            process_log_line(line,17)
+            process_log_line(line,"17")
         if i > 5:
             break
