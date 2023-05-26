@@ -33,28 +33,29 @@ def post_json_to_api(url, payload):
 
 # Process the logline and keep track if it has moved in position. If not moved, then send error.
 def process_log_line(log_line,deviceId):
-    global idle_count
+     global idle_count
     global prev_position
+    log_line = log_line.split("|")[-1].strip()
     numbers = extract_numbers(log_line)
-    if prev_position[0]==numbers[13] and prev_position[1]==numbers[14] and prev_position[2]==numbers[15]:
+    if prev_position[0]==numbers[7] and prev_position[1]==numbers[8] and prev_position[2]==numbers[9]:
         idle_count=idle_count+1
     else:
         idle_count=0
 
-    prev_position[0]=numbers[13]
-    prev_position[1]=numbers[14]
-    prev_position[2]=numbers[15]
+    prev_position[0]=numbers[7]
+    prev_position[1]=numbers[8]
+    prev_position[2]=numbers[9]
 
     if idle_count<5:
         # Define the JSON payload to send
         json_payload = {
             "deviceId": deviceId,
-            "baseRotation": numbers[6],
-            "lowerArm": numbers[7],
-            "upperArm": numbers[8],
-            "wristRotation": numbers[9],
-            "wristAngle": numbers[10],
-            "endAngle": numbers[11],
+            "baseRotation": numbers[0],
+            "lowerArm": numbers[1],
+            "upperArm": numbers[2],
+            "wristRotation": numbers[3],
+            "wristAngle": numbers[4],
+            "endAngle": numbers[6],
             "suction": 1,
             "speed": 30,
         }
